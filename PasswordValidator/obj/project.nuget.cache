@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "wvLfm7QlBRdf/xeMd3l8NeJo2b++ZJBGz7toRHBam/EFn7QnX7aZ+mNJhSRQe3qvHngdFb9PLpr6SLD+Pu5+IQ==",
+  "success": true,
+  "projectFilePath": "D:\\Programming\\Dad Programs\\PasswordValidator\\PasswordValidator\\PasswordValidator\\PasswordValidator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\harve\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\harve\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\harve\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\harve\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\harve\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\harve\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
