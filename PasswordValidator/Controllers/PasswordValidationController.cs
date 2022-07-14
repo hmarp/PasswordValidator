@@ -8,11 +8,9 @@ namespace PasswordValidator.Controllers
         [Route("ValidatePassword")]
         public ActionResult ValidatePassword(string password)
         {
-            bool isCorrectLength = (password.Length >= 6) && (password.Length <= 12);
-            bool containsNumber = password.Any(char.IsDigit);
-            bool containsSpecialCharacter = password.Any(character => !char.IsLetterOrDigit(character));
+            bool isValid = Validator.IsValidPassword(password);
 
-            if (isCorrectLength && containsNumber && containsSpecialCharacter)
+            if (isValid)
             {
                 return Ok("Valid Password");
             }
