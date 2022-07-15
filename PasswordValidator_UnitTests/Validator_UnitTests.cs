@@ -29,6 +29,7 @@ namespace PasswordValidator_UnitTests
 
         [TestCase("aieinr343_3@")]
         [TestCase("111dfjiea@e3")]
+        [TestCase("fdaen@11111112")]
         [TestCase("3jda;af4fdaffede4")]
         public void IsValidAdvancedPassword_ValidPassword_ShouldReturnTrue(string advancedPassword)
         {
