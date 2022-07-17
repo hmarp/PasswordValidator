@@ -6,7 +6,7 @@ namespace PasswordValidator_UnitTests
 {
     internal class AdvancedValidator_UnitTests
     {
-        AdvancedValidator _validator = new AdvancedValidator();
+        IPasswordValidator _validator = new AdvancedValidator();
 
         [TestCase("aieinr343_3@")]
         [TestCase("111dfjiea@e3")]

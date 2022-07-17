@@ -8,7 +8,7 @@ namespace PasswordValidator.Controllers
         [Route("ValidatePassword")]
         public ActionResult ValidatePassword(string password)
         {
-            SimpleValidator simpleValidator = new SimpleValidator();
+            IPasswordValidator simpleValidator = new SimpleValidator();
             bool isValid = simpleValidator.Validate(password);
 
             if (isValid)
@@ -25,7 +25,7 @@ namespace PasswordValidator.Controllers
         [Route("ValidateAdvancedPassword")]
         public ActionResult ValidateAdvancedPassword(string password)
         {
-            AdvancedValidator advancedValidator = new AdvancedValidator();
+            IPasswordValidator advancedValidator = new AdvancedValidator();
             bool isValid = advancedValidator.Validate(password);
 
             if (isValid)

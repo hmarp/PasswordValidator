@@ -5,7 +5,7 @@ namespace PasswordValidator_UnitTests
 {
     internal class SimpleValidator_UnitTests
     {
-        SimpleValidator _validator = new SimpleValidator();
+        IPasswordValidator _validator = new SimpleValidator();
 
         [TestCase("0erknn3#1")]
         [TestCase("@fjeiapfio3")]
