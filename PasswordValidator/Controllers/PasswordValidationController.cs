@@ -4,11 +4,14 @@ namespace PasswordValidator.Controllers
 {
     public class PasswordValidationController : Controller
     {
+        readonly SimpleValidatorFactory _SimpleValidatorFactory = new SimpleValidatorFactory();
+        readonly AdvancedValidatorFactory _AdvancedValidatorFactory = new AdvancedValidatorFactory();
+
         [HttpGet]
         [Route("ValidatePassword")]
         public ActionResult ValidatePassword(string password)
         {
-            IPasswordValidator simpleValidator = new SimpleValidator();
+            IPasswordValidator simpleValidator = _SimpleValidatorFactory.CreateValidator();
             bool isValid = simpleValidator.Validate(password);
 
             if (isValid)
@@ -25,7 +28,7 @@ namespace PasswordValidator.Controllers
         [Route("ValidateAdvancedPassword")]
         public ActionResult ValidateAdvancedPassword(string password)
         {
-            IPasswordValidator advancedValidator = new AdvancedValidator();
+            IPasswordValidator advancedValidator = _AdvancedValidatorFactory.CreateValidator();
             bool isValid = advancedValidator.Validate(password);
 
             if (isValid)
