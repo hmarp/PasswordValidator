@@ -1,23 +1,17 @@
 ﻿namespace PasswordValidator
 {
-    public abstract class PasswordValidatorCreator
+    public class ValidatorFactory
     {
-        public abstract IPasswordValidator CreateValidator();
-    }
-
-    public class SimpleValidatorFactory : PasswordValidatorCreator
-    {
-        public override IPasswordValidator CreateValidator()
+        public IPasswordValidator GetValidator(string validatorType)
         {
-            return new SimpleValidator();
-        }
-    }
-
-    public class AdvancedValidatorFactory : PasswordValidatorCreator
-    {
-        public override IPasswordValidator CreateValidator()
-        {
-            return new AdvancedValidator();
+            if (validatorType == "Simple")
+            {
+                return new SimpleValidator();
+            }
+            else
+            {
+                return new AdvancedValidator();
+            }
         }
     }
 }
