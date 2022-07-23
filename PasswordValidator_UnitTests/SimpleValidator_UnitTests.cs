@@ -5,14 +5,14 @@ namespace PasswordValidator_UnitTests
 {
     internal class SimpleValidator_UnitTests
     {
-        ValidatorFactory _factory = new ValidatorFactory();
+        IValidatorFactory _factory = new PasswordValidatorFactory();
 
         [TestCase("0erknn3#1")]
         [TestCase("@fjeiapfio3")]
         [TestCase("fdnke4442-2")]
         public void Validate_ValidPassword_ShouldReturnTrue(string password)
         {
-            IPasswordValidator validator = _factory.GetValidator("Simple");
+            IPasswordValidator validator = _factory.GetPasswordValidator("Simple");
 
             bool result = validator.Validate(password);
 
@@ -25,7 +25,7 @@ namespace PasswordValidator_UnitTests
         [TestCase("nfn2232ier", Description = "Does Not Contain Special Character")]
         public void IsValidPassword_InvalidPassword_ShouldReturnFalse(string password)
         {
-            IPasswordValidator validator = _factory.GetValidator("Simple");
+            IPasswordValidator validator = _factory.GetPasswordValidator("Simple");
 
             bool result = validator.Validate(password);
 

@@ -1,8 +1,13 @@
 ﻿namespace PasswordValidator
 {
-    public class ValidatorFactory
+    public interface IValidatorFactory
     {
-        public IPasswordValidator GetValidator(string validatorType)
+        public IPasswordValidator GetPasswordValidator(string validatorType);
+    }
+
+    public class PasswordValidatorFactory : IValidatorFactory
+    {
+        public IPasswordValidator GetPasswordValidator(string validatorType)
         {
             if (validatorType == "Simple")
             {
