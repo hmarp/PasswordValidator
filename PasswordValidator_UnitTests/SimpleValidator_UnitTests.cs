@@ -1,21 +1,19 @@
 ﻿using NUnit.Framework;
 using PasswordValidator;
+using System;
 
 namespace PasswordValidator_UnitTests
 {
     internal class SimpleValidator_UnitTests
     {
-        IValidatorFactory _factory = new PasswordValidatorFactory();
+        IPasswordValidator _validator = new SimpleValidator();
 
         [TestCase("0erknn3#1")]
         [TestCase("@fjeiapfio3")]
         [TestCase("fdnke4442-2")]
         public void Validate_ValidPassword_ShouldReturnTrue(string password)
         {
-            IPasswordValidator validator = _factory.GetPasswordValidator("Simple");
-
-            bool result = validator.Validate(password);
-
+            bool result = _validator.Validate(password);
             Assert.IsTrue(result);
         }
 
@@ -25,12 +23,14 @@ namespace PasswordValidator_UnitTests
         [TestCase("nfn2232ier", Description = "Does Not Contain Special Character")]
         public void IsValidPassword_InvalidPassword_ShouldReturnFalse(string password)
         {
-            IPasswordValidator validator = _factory.GetPasswordValidator("Simple");
-
-            bool result = validator.Validate(password);
-
+            bool result = _validator.Validate(password);
             Assert.IsFalse(result);
         }
 
+        [TestCase(null, Description = "Null")]
+        public void IsValidPassword_Null_ShouldThrowNullReferenceException(string advancedPassword)
+        {
+            Assert.Throws<NullReferenceException>(() => _validator.Validate(advancedPassword));
+        }
     }
 }
