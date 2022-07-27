@@ -98,9 +98,9 @@ namespace PasswordValidator_UnitTests
 
             var controller = new PasswordValidationController(_validatorFactory);
 
-            var actionResult = controller.ValidatePassword(password);
+            var actionResult = controller.ValidatePassword(password) as ObjectResult;
 
-            Assert.AreEqual(StatusCodes.Status500InternalServerError, actionResult);
+            Assert.AreEqual(StatusCodes.Status500InternalServerError, actionResult.StatusCode);
         }
     }
 }

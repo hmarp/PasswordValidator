@@ -33,7 +33,7 @@ namespace PasswordValidator.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                return Problem();
             }
         }
 
@@ -59,7 +59,7 @@ namespace PasswordValidator.Controllers
             }
             catch
             {
-                return StatusCode(500);
+                return Problem();
             }            
         }
     }
