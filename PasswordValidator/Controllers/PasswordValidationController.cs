@@ -4,7 +4,7 @@ namespace PasswordValidator.Controllers
 {
     public class PasswordValidationController : Controller
     {
-        readonly IValidatorFactory _validatorFactory;
+        private readonly IValidatorFactory _validatorFactory;
 
         public PasswordValidationController(IValidatorFactory validatorFactory)
         {
@@ -21,20 +21,20 @@ namespace PasswordValidator.Controllers
             {
                 var simpleValidator = _validatorFactory.GetPasswordValidator("Simple");
                 isValid = simpleValidator.Validate(password);
+
+                if (isValid)
+                {
+                    return Ok("Valid Password");
+                }
+                else
+                {
+                    return BadRequest("Invalid Password");
+                }
             }
             catch (Exception)
             {
                 return StatusCode(500);
             }
-
-            if (isValid)
-            {
-                return Ok("Valid Password");
-            }
-            else
-            {
-                return BadRequest("Invalid Password");
-            } 
         }
 
         [HttpGet]
@@ -47,20 +47,20 @@ namespace PasswordValidator.Controllers
             {
                 var advancedValidator = _validatorFactory.GetPasswordValidator("Advanced");
                 isValid = advancedValidator.Validate(password);
+
+                if (isValid)
+                {
+                    return Ok("Valid Advanced Password");
+                }
+                else
+                {
+                    return BadRequest("Invalid Advanced Password");
+                }
             }
             catch
             {
                 return StatusCode(500);
-            }
-
-            if (isValid)
-            {
-                return Ok("Valid Advanced Password");
-            }
-            else
-            {
-                return BadRequest("Invalid Advanced Password");
-            }
+            }            
         }
     }
 }

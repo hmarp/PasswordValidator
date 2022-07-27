@@ -16,6 +16,10 @@ namespace PasswordValidator_UnitTests
         [TestCase("0erknn3#1")]
         [TestCase("@fjeiapfio3")]
         [TestCase("fdnke4442-2")]
+        [TestCase("eibn3j22if';")]
+        [TestCase("10fign9w-=w")]
+        [TestCase("===111kkkff")]
+        [TestCase("dfa;n2niv")]
         public void Validate_ValidPassword_ShouldReturnTrue(string password)
         {
             var result = _validator.Validate(password);
@@ -26,6 +30,8 @@ namespace PasswordValidator_UnitTests
         [TestCase("fa#3", Description = "Too Short")]
         [TestCase("feafee@@ae", Description = "Does Not Contain Number")]
         [TestCase("nfn2232ier", Description = "Does Not Contain Special Character")]
+        [TestCase("", Description = "Emtpy String")]
+        [TestCase(" ", Description = "Whitespace")]
         public void IsValidPassword_InvalidPassword_ShouldReturnFalse(string password)
         {
             var result = _validator.Validate(password);
