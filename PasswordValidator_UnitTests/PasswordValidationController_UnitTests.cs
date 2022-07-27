@@ -86,7 +86,7 @@ namespace PasswordValidator_UnitTests
         }
 
         [Test]
-        public void ValidatePassword_ValidateThrowsExcetion_ShouldReturn500StatusCode()
+        public void ValidatePassword_ValidateThrowsException_ShouldReturn500StatusCode()
         {
             string password = string.Empty;
 
