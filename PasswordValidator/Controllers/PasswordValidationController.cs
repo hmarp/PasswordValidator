@@ -15,8 +15,17 @@ namespace PasswordValidator.Controllers
         [Route("ValidatePassword")]
         public ActionResult ValidatePassword(string password)
         {
-            IPasswordValidator simpleValidator = _validatorFactory.GetPasswordValidator("Simple");
-            bool isValid = simpleValidator.Validate(password);
+            bool isValid;
+
+            try
+            {
+                var simpleValidator = _validatorFactory.GetPasswordValidator("Simple");
+                isValid = simpleValidator.Validate(password);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
 
             if (isValid)
             {
@@ -32,8 +41,17 @@ namespace PasswordValidator.Controllers
         [Route("ValidateAdvancedPassword")]
         public ActionResult ValidateAdvancedPassword(string password)
         {
-            IPasswordValidator advancedValidator = _validatorFactory.GetPasswordValidator("Advanced");
-            bool isValid = advancedValidator.Validate(password);
+            bool isValid;
+
+            try
+            {
+                var advancedValidator = _validatorFactory.GetPasswordValidator("Advanced");
+                isValid = advancedValidator.Validate(password);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
 
             if (isValid)
             {
