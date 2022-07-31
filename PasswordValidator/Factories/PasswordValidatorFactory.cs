@@ -1,10 +1,5 @@
-﻿namespace PasswordValidator
+﻿namespace PasswordValidator.Factories
 {
-    public interface IValidatorFactory
-    {
-        public IPasswordValidator GetPasswordValidator(string validatorType);
-    }
-
     public class PasswordValidatorFactory : IValidatorFactory
     {
         public IPasswordValidator GetPasswordValidator(string validatorType)
