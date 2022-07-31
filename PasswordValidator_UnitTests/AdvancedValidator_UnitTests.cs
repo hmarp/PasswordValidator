@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using PasswordValidator;
+using PasswordValidator.Validators;
 using System;
 
 namespace PasswordValidator_UnitTests

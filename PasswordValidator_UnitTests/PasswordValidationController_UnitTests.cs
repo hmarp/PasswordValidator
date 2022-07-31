@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
-using PasswordValidator;
+using PasswordValidator.Factories;
+using PasswordValidator.Validators;
 using PasswordValidator.Controllers;
 using NUnit.Framework;
 using System;
@@ -100,7 +101,7 @@ namespace PasswordValidator_UnitTests
 
             var actionResult = controller.ValidatePassword(password) as ObjectResult;
 
-            Assert.AreEqual(StatusCodes.Status500InternalServerError, actionResult.StatusCode);
+            Assert.AreEqual(StatusCodes.Status500InternalServerError, actionResult?.StatusCode);
         }
     }
 }

@@ -1,4 +1,4 @@
-using PasswordValidator;
+using PasswordValidator.Factories;
 
 var builder = WebApplication.CreateBuilder(args);
 

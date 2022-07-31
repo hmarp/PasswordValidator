@@ -1,16 +1,31 @@
-﻿namespace PasswordValidator.Factories
+﻿using PasswordValidator.Validators;
+
+namespace PasswordValidator.Factories
 {
     public class PasswordValidatorFactory : IValidatorFactory
     {
+        private readonly IDictionary<string, IPasswordValidator> _validators;
+
+        public PasswordValidatorFactory()
+        {
+            _validators = new Dictionary<string, IPasswordValidator>();
+            _validators.Add("simple", new SimpleValidator());
+            _validators.Add("advanced", new AdvancedValidator());
+        }
+
         public IPasswordValidator GetPasswordValidator(string validatorType)
         {
-            if (validatorType == "Simple")
+            if (validatorType.ToLower() == "simple")
             {
-                return new SimpleValidator();
+                return _validators["simple"];
+            }
+            else if (validatorType.ToLower() == "advanced")
+            {
+                return _validators["advanced"];
             }
             else
             {
-                return new AdvancedValidator();
+                throw new ArgumentException("Unrecognized validatorType");
             }
         }
     }

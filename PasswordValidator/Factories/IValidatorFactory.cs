@@ -1,4 +1,6 @@
-﻿namespace PasswordValidator.Factories
+﻿using PasswordValidator.Validators;
+
+namespace PasswordValidator.Factories
 {
     public interface IValidatorFactory
     {

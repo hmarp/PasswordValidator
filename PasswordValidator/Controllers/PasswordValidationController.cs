@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PasswordValidator.Factories;
 
 namespace PasswordValidator.Controllers
 {
