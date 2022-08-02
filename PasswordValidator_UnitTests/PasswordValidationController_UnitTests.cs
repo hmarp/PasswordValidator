@@ -6,6 +6,7 @@ using PasswordValidator.Controllers;
 using NUnit.Framework;
 using System;
 using Microsoft.AspNetCore.Http;
+using PasswordValidator.Enums;
 
 namespace PasswordValidator_UnitTests
 {
@@ -19,7 +20,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator("Simple")
+            _validatorFactory.GetPasswordValidator(ValidatorType.simple)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -37,7 +38,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator("Simple")
+            _validatorFactory.GetPasswordValidator(ValidatorType.simple)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -55,7 +56,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator("Advanced")
+            _validatorFactory.GetPasswordValidator(ValidatorType.advanced)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -73,7 +74,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator("Advanced")
+            _validatorFactory.GetPasswordValidator(ValidatorType.advanced)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -91,7 +92,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator("Simple")
+            _validatorFactory.GetPasswordValidator(ValidatorType.simple)
                 .Returns(_validator);
 
             _validator.Validate(password)

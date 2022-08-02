@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PasswordValidator.Enums;
 using PasswordValidator.Factories;
 
 namespace PasswordValidator.Controllers
@@ -20,7 +21,7 @@ namespace PasswordValidator.Controllers
 
             try
             {
-                var simpleValidator = _validatorFactory.GetPasswordValidator("Simple");
+                var simpleValidator = _validatorFactory.GetPasswordValidator(ValidatorType.simple);
                 isValid = simpleValidator.Validate(password);
 
                 if (isValid)
@@ -46,7 +47,7 @@ namespace PasswordValidator.Controllers
 
             try
             {
-                var advancedValidator = _validatorFactory.GetPasswordValidator("Advanced");
+                var advancedValidator = _validatorFactory.GetPasswordValidator(ValidatorType.advanced);
                 isValid = advancedValidator.Validate(password);
 
                 if (isValid)

@@ -1,4 +1,5 @@
-﻿using PasswordValidator.Validators;
+﻿using PasswordValidator.Enums;
+using PasswordValidator.Validators;
 
 namespace PasswordValidator.Factories
 {
@@ -9,24 +10,13 @@ namespace PasswordValidator.Factories
         public PasswordValidatorFactory()
         {
             _validators = new Dictionary<string, IPasswordValidator>();
-            _validators.Add("simple", new SimpleValidator());
-            _validators.Add("advanced", new AdvancedValidator());
+            _validators.Add(ValidatorType.simple.ToString(), new SimpleValidator());
+            _validators.Add(ValidatorType.advanced.ToString(), new AdvancedValidator());
         }
 
-        public IPasswordValidator GetPasswordValidator(string validatorType)
+        public IPasswordValidator GetPasswordValidator(ValidatorType validatorType)
         {
-            if (validatorType.ToLower() == "simple")
-            {
-                return _validators["simple"];
-            }
-            else if (validatorType.ToLower() == "advanced")
-            {
-                return _validators["advanced"];
-            }
-            else
-            {
-                throw new ArgumentException("Unrecognized validatorType");
-            }
+            return _validators[validatorType.ToString()];
         }
     }
 }

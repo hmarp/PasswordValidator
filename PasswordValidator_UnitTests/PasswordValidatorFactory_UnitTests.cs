@@ -1,6 +1,7 @@
 ﻿using PasswordValidator.Factories;
 using PasswordValidator.Validators;
 using NUnit.Framework;
+using PasswordValidator.Enums;
 
 namespace PasswordValidator_UnitTests
 {
@@ -13,30 +14,18 @@ namespace PasswordValidator_UnitTests
             _validatorFactory = new PasswordValidatorFactory();
         }
 
-        [TestCase("simple")]
-        [TestCase("Simple")]
-        public void GetPasswordValidator_SimpleValidator_ShouldReturnSimpleValidator(string validatorType)
+        [Test]
+        public void GetPasswordValidator_SimpleValidator_ShouldReturnSimpleValidator()
         {
-            var validator = _validatorFactory.GetPasswordValidator(validatorType);
+            var validator = _validatorFactory.GetPasswordValidator(ValidatorType.simple);
             Assert.IsInstanceOf<SimpleValidator>(validator);
         }
 
-        [TestCase("advanced")]
-        [TestCase("Advanced")]
-        public void GetPasswordValidator_AdvancedValidator_ShouldReturnAdvancedValidator(string validatorType)
+        [Test]
+        public void GetPasswordValidator_AdvancedValidator_ShouldReturnAdvancedValidator()
         {
-            var validator = _validatorFactory.GetPasswordValidator(validatorType);
+            var validator = _validatorFactory.GetPasswordValidator(ValidatorType.advanced);
             Assert.IsInstanceOf<AdvancedValidator>(validator);
-        }
-
-        [TestCase("unknown")]
-        [TestCase("Advance")]
-        [TestCase("simpleton")]
-        [TestCase("")]
-        [TestCase("fjeiji3")]
-        public void GetPasswordValidator_UnknownValidatorType_ShouldReturnArgumentException(string validatorType)
-        {
-            Assert.Throws<System.ArgumentException>(() => _validatorFactory.GetPasswordValidator(validatorType));
         }
     }
 }
