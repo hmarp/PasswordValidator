@@ -1,4 +1,4 @@
-﻿namespace PasswordValidator
+﻿namespace PasswordValidator.Validators
 {
     public class SimpleValidator : IPasswordValidator
     {
