@@ -5,18 +5,16 @@ namespace PasswordValidator.Factories
 {
     public class PasswordValidatorFactory : IValidatorFactory
     {
-        private readonly IDictionary<string, IPasswordValidator> _validators;
+        private readonly IEnumerable<IPasswordValidator> _validators;
 
-        public PasswordValidatorFactory()
+        public PasswordValidatorFactory(IEnumerable<IPasswordValidator> validators)
         {
-            _validators = new Dictionary<string, IPasswordValidator>();
-            _validators.Add(ValidatorType.simple.ToString(), new SimpleValidator());
-            _validators.Add(ValidatorType.advanced.ToString(), new AdvancedValidator());
+            _validators = validators ?? throw new ArgumentNullException(nameof(validators));
         }
 
         public IPasswordValidator GetPasswordValidator(ValidatorType validatorType)
         {
-            return _validators[validatorType.ToString()];
+            return _validators.Single(x => x.ValidatorType == validatorType);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace PasswordValidator.Controllers
 
             try
             {
-                var simpleValidator = _validatorFactory.GetPasswordValidator(ValidatorType.simple);
+                var simpleValidator = _validatorFactory.GetPasswordValidator(ValidatorType.Simple);
                 isValid = simpleValidator.Validate(password);
 
                 if (isValid)
@@ -47,7 +47,7 @@ namespace PasswordValidator.Controllers
 
             try
             {
-                var advancedValidator = _validatorFactory.GetPasswordValidator(ValidatorType.advanced);
+                var advancedValidator = _validatorFactory.GetPasswordValidator(ValidatorType.Advanced);
                 isValid = advancedValidator.Validate(password);
 
                 if (isValid)

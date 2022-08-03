@@ -11,20 +11,21 @@ namespace PasswordValidator_UnitTests
 
         public PasswordValidatorFactory_UnitTests()
         {
-            _validatorFactory = new PasswordValidatorFactory();
+            IPasswordValidator[] validators = new IPasswordValidator[] { new SimpleValidator(), new AdvancedValidator() };
+            _validatorFactory = new PasswordValidatorFactory(validators);
         }
 
         [Test]
         public void GetPasswordValidator_SimpleValidator_ShouldReturnSimpleValidator()
         {
-            var validator = _validatorFactory.GetPasswordValidator(ValidatorType.simple);
+            var validator = _validatorFactory.GetPasswordValidator(ValidatorType.Simple);
             Assert.IsInstanceOf<SimpleValidator>(validator);
         }
 
         [Test]
         public void GetPasswordValidator_AdvancedValidator_ShouldReturnAdvancedValidator()
         {
-            var validator = _validatorFactory.GetPasswordValidator(ValidatorType.advanced);
+            var validator = _validatorFactory.GetPasswordValidator(ValidatorType.Advanced);
             Assert.IsInstanceOf<AdvancedValidator>(validator);
         }
     }

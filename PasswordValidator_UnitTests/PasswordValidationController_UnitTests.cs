@@ -20,7 +20,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator(ValidatorType.simple)
+            _validatorFactory.GetPasswordValidator(ValidatorType.Simple)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -38,7 +38,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator(ValidatorType.simple)
+            _validatorFactory.GetPasswordValidator(ValidatorType.Simple)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -56,7 +56,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator(ValidatorType.advanced)
+            _validatorFactory.GetPasswordValidator(ValidatorType.Advanced)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -74,7 +74,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator(ValidatorType.advanced)
+            _validatorFactory.GetPasswordValidator(ValidatorType.Advanced)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -92,7 +92,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator(ValidatorType.simple)
+            _validatorFactory.GetPasswordValidator(ValidatorType.Simple)
                 .Returns(_validator);
 
             _validator.Validate(password)
