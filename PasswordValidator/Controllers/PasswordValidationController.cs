@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PasswordValidator.Enums;
+using PasswordValidator.Factories;
 
 namespace PasswordValidator.Controllers
 {
     public class PasswordValidationController : Controller
     {
-        readonly IValidatorFactory _validatorFactory;
+        private readonly IValidatorFactory _validatorFactory;
 
         public PasswordValidationController(IValidatorFactory validatorFactory)
         {
@@ -19,22 +21,22 @@ namespace PasswordValidator.Controllers
 
             try
             {
-                var simpleValidator = _validatorFactory.GetPasswordValidator("Simple");
+                var simpleValidator = _validatorFactory.GetPasswordValidator(ValidatorType.Simple);
                 isValid = simpleValidator.Validate(password);
+
+                if (isValid)
+                {
+                    return Ok("Valid Password");
+                }
+                else
+                {
+                    return BadRequest("Invalid Password");
+                }
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                return Problem();
             }
-
-            if (isValid)
-            {
-                return Ok("Valid Password");
-            }
-            else
-            {
-                return BadRequest("Invalid Password");
-            } 
         }
 
         [HttpGet]
@@ -45,22 +47,22 @@ namespace PasswordValidator.Controllers
 
             try
             {
-                var advancedValidator = _validatorFactory.GetPasswordValidator("Advanced");
+                var advancedValidator = _validatorFactory.GetPasswordValidator(ValidatorType.Advanced);
                 isValid = advancedValidator.Validate(password);
+
+                if (isValid)
+                {
+                    return Ok("Valid Advanced Password");
+                }
+                else
+                {
+                    return BadRequest("Invalid Advanced Password");
+                }
             }
             catch
             {
-                return StatusCode(500);
-            }
-
-            if (isValid)
-            {
-                return Ok("Valid Advanced Password");
-            }
-            else
-            {
-                return BadRequest("Invalid Advanced Password");
-            }
+                return Problem();
+            }            
         }
     }
 }

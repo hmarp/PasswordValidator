@@ -1,7 +1,11 @@
-﻿namespace PasswordValidator
+﻿using PasswordValidator.Enums;
+
+namespace PasswordValidator.Validators
 {
     public class SimpleValidator : IPasswordValidator
     {
+        public ValidatorType ValidatorType => ValidatorType.Simple;
+
         public bool Validate(string password)
         {
             bool isValidLength = (password.Length >= 6) && (password.Length <= 12);

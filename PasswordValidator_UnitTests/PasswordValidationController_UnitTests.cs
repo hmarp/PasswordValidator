@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
-using PasswordValidator;
+using PasswordValidator.Factories;
+using PasswordValidator.Validators;
 using PasswordValidator.Controllers;
 using NUnit.Framework;
 using System;
 using Microsoft.AspNetCore.Http;
+using PasswordValidator.Enums;
 
 namespace PasswordValidator_UnitTests
 {
@@ -18,7 +20,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator("Simple")
+            _validatorFactory.GetPasswordValidator(ValidatorType.Simple)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -36,7 +38,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator("Simple")
+            _validatorFactory.GetPasswordValidator(ValidatorType.Simple)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -54,7 +56,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator("Advanced")
+            _validatorFactory.GetPasswordValidator(ValidatorType.Advanced)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -72,7 +74,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator("Advanced")
+            _validatorFactory.GetPasswordValidator(ValidatorType.Advanced)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -90,7 +92,7 @@ namespace PasswordValidator_UnitTests
         {
             string password = string.Empty;
 
-            _validatorFactory.GetPasswordValidator("Simple")
+            _validatorFactory.GetPasswordValidator(ValidatorType.Simple)
                 .Returns(_validator);
 
             _validator.Validate(password)
@@ -98,9 +100,9 @@ namespace PasswordValidator_UnitTests
 
             var controller = new PasswordValidationController(_validatorFactory);
 
-            var actionResult = controller.ValidatePassword(password);
+            var actionResult = controller.ValidatePassword(password) as ObjectResult;
 
-            Assert.AreEqual(StatusCodes.Status500InternalServerError, actionResult);
+            Assert.AreEqual(StatusCodes.Status500InternalServerError, actionResult?.StatusCode);
         }
     }
 }
