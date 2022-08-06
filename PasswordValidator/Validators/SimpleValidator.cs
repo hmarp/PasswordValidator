@@ -10,7 +10,7 @@ namespace PasswordValidator.Validators
         {
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentException("Invalid Null or Whitespace Password Input");
+                throw new ArgumentException($"{nameof(password)} cannot be null or whitespace");
             }
 
             bool isValidLength = (password.Length >= 6) && (password.Length <= 12);

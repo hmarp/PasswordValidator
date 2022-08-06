@@ -108,7 +108,8 @@ namespace PasswordValidator_UnitTests
         [Test]
         public void PasswordValidationController_NullFactory_ShouldThrowArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => new PasswordValidationController(null));
+            var argumentNullException = Assert.Throws<ArgumentNullException>(() => new PasswordValidationController(null));
+            Assert.AreEqual("Value cannot be null. (Parameter 'validatorFactory')", argumentNullException?.Message);
         }
     }
 }

@@ -41,7 +41,8 @@ namespace PasswordValidator_UnitTests
         [TestCase(" ", Description = "Whitespace")]
         public void IsValidPassword_Null_ShouldThrowArgumentNullException(string advancedPassword)
         {
-            Assert.Throws<ArgumentException>(() => _validator.Validate(advancedPassword));
+            var argumentException = Assert.Throws<ArgumentException>(() => _validator.Validate(advancedPassword));
+            Assert.AreEqual("password cannot be null or whitespace", argumentException?.Message);
         }
     }
 }
