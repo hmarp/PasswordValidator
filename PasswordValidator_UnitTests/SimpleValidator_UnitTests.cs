@@ -30,8 +30,6 @@ namespace PasswordValidator_UnitTests
         [TestCase("fa#3", Description = "Too Short")]
         [TestCase("feafee@@ae", Description = "Does Not Contain Number")]
         [TestCase("nfn2232ier", Description = "Does Not Contain Special Character")]
-        [TestCase("", Description = "Emtpy String")]
-        [TestCase(" ", Description = "Whitespace")]
         public void IsValidPassword_InvalidPassword_ShouldReturnFalse(string password)
         {
             var result = _validator.Validate(password);
@@ -39,9 +37,11 @@ namespace PasswordValidator_UnitTests
         }
 
         [TestCase(null, Description = "Null")]
-        public void IsValidPassword_Null_ShouldThrowNullReferenceException(string advancedPassword)
+        [TestCase("", Description = "Empty String")]
+        [TestCase(" ", Description = "Whitespace")]
+        public void IsValidPassword_Null_ShouldThrowArgumentNullException(string advancedPassword)
         {
-            Assert.Throws<NullReferenceException>(() => _validator.Validate(advancedPassword));
+            Assert.Throws<ArgumentException>(() => _validator.Validate(advancedPassword));
         }
     }
 }
