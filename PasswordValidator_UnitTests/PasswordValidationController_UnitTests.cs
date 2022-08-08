@@ -104,5 +104,12 @@ namespace PasswordValidator_UnitTests
 
             Assert.AreEqual(StatusCodes.Status500InternalServerError, actionResult?.StatusCode);
         }
+
+        [Test]
+        public void PasswordValidationController_NullFactory_ShouldThrowArgumentNullException()
+        {
+            var argumentNullException = Assert.Throws<ArgumentNullException>(() => new PasswordValidationController(null));
+            Assert.AreEqual("Value cannot be null. (Parameter 'validatorFactory')", argumentNullException?.Message);
+        }
     }
 }

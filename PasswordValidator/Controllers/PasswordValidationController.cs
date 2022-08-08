@@ -10,7 +10,7 @@ namespace PasswordValidator.Controllers
 
         public PasswordValidationController(IValidatorFactory validatorFactory)
         {
-            _validatorFactory = validatorFactory;
+            _validatorFactory = validatorFactory ?? throw new ArgumentNullException(nameof(validatorFactory));
         }
 
         [HttpGet]
