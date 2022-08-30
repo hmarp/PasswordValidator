@@ -1,10 +1,17 @@
 ﻿using PasswordValidator.Enums;
+using PasswordValidator.Rules;
 
 namespace PasswordValidator.Validators
 {
     public class AdvancedValidator : IPasswordValidator
     {
         public ValidatorType ValidatorType => ValidatorType.Advanced;
+        public IEnumerable<IRule> Rules { get; set; }
+
+        public AdvancedValidator(IEnumerable<IRule> rules)
+        {
+            Rules = rules;
+        }
 
         public bool Validate(string password)
         {
