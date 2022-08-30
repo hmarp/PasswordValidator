@@ -5,4 +5,13 @@
         Simple,
         Advanced
     }
+
+    public enum RuleType
+    {
+        AdvancedLength,
+        SimpleLength,
+        ContainsSpecialCharacter,
+        SimpleNumber,
+        AdvancedNumber
+    }
 }
