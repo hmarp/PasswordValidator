@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
+using PasswordValidator.Rules;
 using PasswordValidator.Validators;
 using System;
+using System.Collections.Generic;
 
 namespace PasswordValidator_UnitTests
 {
@@ -10,7 +12,14 @@ namespace PasswordValidator_UnitTests
 
         public SimpleValidator_UnitTests()
         {
-            _validator = new SimpleValidator();
+            var rules = new List<IRule>
+            {
+                new SimpleLengthRule(),
+                new SimpleNumberRule(),
+                new ContainsSpecialCharacterRule()
+            };
+
+            _validator = new SimpleValidator(rules);
         }
 
         [TestCase("0erknn3#1")]

@@ -2,6 +2,8 @@
 using PasswordValidator.Validators;
 using NUnit.Framework;
 using PasswordValidator.Enums;
+using System.Collections.Generic;
+using PasswordValidator.Rules;
 
 namespace PasswordValidator_UnitTests
 {
@@ -11,7 +13,16 @@ namespace PasswordValidator_UnitTests
 
         public PasswordValidatorFactory_UnitTests()
         {
-            IPasswordValidator[] validators = new IPasswordValidator[] { new SimpleValidator(), new AdvancedValidator() };
+            var rules = new List<IRule>
+            {
+                new AdvancedLengthRule(),
+                new AdvancedNumberRule(),
+                new SimpleLengthRule(),
+                new SimpleNumberRule(),
+                new ContainsSpecialCharacterRule()
+            };
+
+            IPasswordValidator[] validators = new IPasswordValidator[] { new SimpleValidator(rules), new AdvancedValidator(rules) };
             _validatorFactory = new PasswordValidatorFactory(validators);
         }
 

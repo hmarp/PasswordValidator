@@ -8,10 +8,10 @@
 
     public enum RuleType
     {
-        AdvancedLength,
         SimpleLength,
-        ContainsSpecialCharacter,
+        AdvancedLength,
         SimpleNumber,
-        AdvancedNumber
+        AdvancedNumber,
+        ContainsSpecialCharacter
     }
 }

@@ -1,7 +1,11 @@
-﻿namespace PasswordValidator.Rules
+﻿using PasswordValidator.Enums;
+
+namespace PasswordValidator.Rules
 {
     public class ContainsSpecialCharacterRule : IRule
     {
+        public RuleType Type => RuleType.ContainsSpecialCharacter;
+
         public bool Satisfied(string password)
         {
             return password.Any(character => !char.IsLetterOrDigit(character));

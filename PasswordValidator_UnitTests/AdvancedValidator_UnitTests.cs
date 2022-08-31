@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
+using PasswordValidator.Rules;
 using PasswordValidator.Validators;
 using System;
+using System.Collections.Generic;
 
 namespace PasswordValidator_UnitTests
 {
@@ -10,7 +12,14 @@ namespace PasswordValidator_UnitTests
 
         public AdvancedValidator_UnitTests()
         {
-            _validator = new AdvancedValidator();
+            var rules = new List<IRule>
+            {
+                new AdvancedLengthRule(),
+                new AdvancedNumberRule(),
+                new ContainsSpecialCharacterRule()
+            };
+
+            _validator = new AdvancedValidator(rules);
         }
 
         [TestCase("aieinr343_3@")]

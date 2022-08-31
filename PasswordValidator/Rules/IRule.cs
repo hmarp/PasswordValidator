@@ -4,7 +4,7 @@ namespace PasswordValidator.Rules
 {
     public interface IRule
     {
-        public RuleType ruleType { get; set; }
+        public RuleType Type { get; }
         public bool Satisfied(string password);
     }
 }
