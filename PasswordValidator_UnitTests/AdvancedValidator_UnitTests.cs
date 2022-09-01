@@ -1,56 +1,65 @@
 ﻿using NUnit.Framework;
+using NSubstitute;
 using PasswordValidator.Rules;
 using PasswordValidator.Validators;
 using System;
+using PasswordValidator.Enums;
 using System.Collections.Generic;
 
 namespace PasswordValidator_UnitTests
 {
     internal class AdvancedValidator_UnitTests
     {
-        private readonly IPasswordValidator _validator;
+        private IPasswordValidator? _validator;
+        private readonly IRule _mockLengthRule;
+        private readonly IRule _mockNumberRule;
+        private readonly IRule _mockCharacterRule;
+
 
         public AdvancedValidator_UnitTests()
         {
-            var rules = new List<IRule>
-            {
-                new AdvancedLengthRule(),
-                new AdvancedNumberRule(),
-                new ContainsSpecialCharacterRule()
-            };
+            _mockLengthRule = Substitute.For<IRule>();
+            _mockNumberRule = Substitute.For<IRule>();
+            _mockCharacterRule = Substitute.For<IRule>();
 
-            _validator = new AdvancedValidator(rules);
+            _mockLengthRule.Type.Returns(RuleType.AdvancedLength);
+            _mockNumberRule.Type.Returns(RuleType.AdvancedNumber);
+            _mockCharacterRule.Type.Returns(RuleType.ContainsSpecialCharacter);
         }
 
-        [TestCase("aieinr343_3@")]
-        [TestCase("111dfjiea@e3")]
-        [TestCase("3jda;af4fdaffede4")]
-        [TestCase("qqqwww333@@@")]
-        [TestCase("f92-v;w/2wqfas")]
-        [TestCase("29fjvie[w'fwfk")]
-        public void IsValidAdvancedPassword_ValidPassword_ShouldReturnTrue(string advancedPassword)
+        [Test]
+        public void IsValidAdvancedPassword_AllRulesSatisfied_ShouldReturnTrue()
         {
-            var result = _validator.Validate(advancedPassword);
+            _mockLengthRule.Satisfied(Arg.Any<string>()).Returns(true);
+            _mockNumberRule.Satisfied(Arg.Any<string>()).Returns(true);
+            _mockCharacterRule.Satisfied(Arg.Any<string>()).Returns(true);
+
+            var mockRules = new IRule[] { _mockLengthRule, _mockNumberRule, _mockCharacterRule };
+            _validator = new AdvancedValidator(mockRules);
+
+            var result = _validator.Validate("testPassword");
+
             Assert.IsTrue(result);
         }
 
-        [TestCase("eifn-fhje@ee33flren", Description = "Too Long")]
-        [TestCase("22@rekfev", Description = "Too Short")]
-        [TestCase("1jie@rneff", Description = "Not Enough Numbers")]
-        [TestCase("2300fmnenvieu", Description = "No Special Character")]
-        [TestCase("justaword")]
-        [TestCase("", Description = "Emtpy String")]
-        [TestCase(" ", Description = "Whitespace")]
-        public void IsValidAdvancedPassword_InvalidPassword_ShouldReturnFalse(string advancedPassword)
+        [TestCase(false, true, true)]
+        [TestCase(true, false, true)]
+        [TestCase(true, true, false)]
+        [TestCase(false, false, true)]
+        [TestCase(true, false, false)]
+        [TestCase(false, true, false)]
+        [TestCase(false, false, false)]
+        public void IsValidAdvancedPassword_AtLeastOneRuleReturnsFalse_ShouldReturnFalse(bool lengthRule, bool numberRule, bool characterRule)
         {
-            var result = _validator.Validate(advancedPassword);
-            Assert.IsFalse(result);
-        }
+            _mockLengthRule.Satisfied(Arg.Any<string>()).Returns(lengthRule);
+            _mockNumberRule.Satisfied(Arg.Any<string>()).Returns(numberRule);
+            _mockCharacterRule.Satisfied(Arg.Any<string>()).Returns(characterRule);
 
-        [TestCase(null, Description = "Null")]
-        public void IsValidAdvancedPassword_Null_ShouldThrowNullReferenceException(string advancedPassword)
-        {
-            Assert.Throws<NullReferenceException>(() => _validator.Validate(advancedPassword));
+            var mockRules = new IRule[] { _mockLengthRule, _mockNumberRule, _mockCharacterRule };
+            _validator = new AdvancedValidator(mockRules);
+
+            var result = _validator.Validate("testPassword");
+            Assert.IsFalse(result);
         }
     }
 }

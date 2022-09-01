@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IValidatorFactory, PasswordValidatorFactory>();
 builder.Services.AddScoped<IPasswordValidator, SimpleValidator>();
 builder.Services.AddScoped<IPasswordValidator, AdvancedValidator>();
+
 builder.Services.AddScoped<IRule, AdvancedLengthRule>();
 builder.Services.AddScoped<IRule, SimpleLengthRule>();
 builder.Services.AddScoped<IRule, AdvancedNumberRule>();

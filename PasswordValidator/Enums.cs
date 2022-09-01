@@ -2,6 +2,7 @@
 {
     public enum ValidatorType
     {
+        Base,
         Simple,
         Advanced
     }
