@@ -8,6 +8,8 @@ namespace PasswordValidator.Rules
 
         public bool Satisfied(string password)
         {
+            if (password == null) throw new ArgumentNullException(nameof(password));
+
             return password.Any(character => !char.IsLetterOrDigit(character));
         }
     }
