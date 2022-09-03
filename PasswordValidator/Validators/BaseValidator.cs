@@ -5,16 +5,13 @@ namespace PasswordValidator.Validators
 {
     public class BaseValidator : IPasswordValidator
     {
-        private readonly IEnumerable<IRule> Rules;
+        public IEnumerable<IRule>? Rules;
         public ValidatorType ValidatorType => ValidatorType.Base;
-
-        public BaseValidator(IEnumerable<IRule> rules)
-        {
-            Rules = rules;
-        }
 
         public bool Validate(string password)
         {
+            if (Rules == null) return true;
+
             foreach (var rule in Rules)
             {
                 if (!rule.Satisfied(password))
