@@ -10,7 +10,9 @@ namespace PasswordValidator_UnitTests
 {
     internal class SimpleValidator_UnitTests
     {
+        private readonly string _password;
         private IPasswordValidator? _validator;
+
         private readonly IRule _mockSimpleLengthRule;
         private readonly IRule _mockSimpleNumberRule;
         private readonly IRule _mockAdvancedLengthRule;
@@ -19,6 +21,8 @@ namespace PasswordValidator_UnitTests
 
         public SimpleValidator_UnitTests()
         {
+            _password = "testPassword";
+
             _mockCharacterRule = Substitute.For<IRule>();
             _mockSimpleLengthRule = Substitute.For<IRule>();
             _mockSimpleNumberRule = Substitute.For<IRule>();
@@ -45,9 +49,9 @@ namespace PasswordValidator_UnitTests
         [Test]
         public void Validate_AllRulesSatisfied_ShouldReturnTrue()
         {
-            _mockSimpleLengthRule.Satisfied(Arg.Any<string>()).Returns(true);
-            _mockSimpleNumberRule.Satisfied(Arg.Any<string>()).Returns(true);
-            _mockCharacterRule.Satisfied(Arg.Any<string>()).Returns(true);
+            _mockSimpleLengthRule.Satisfied(_password).Returns(true);
+            _mockSimpleNumberRule.Satisfied(_password).Returns(true);
+            _mockCharacterRule.Satisfied(_password).Returns(true);
 
             var mockRules = new IRule[] { _mockAdvancedLengthRule, _mockAdvancedNumberRule, _mockCharacterRule, _mockSimpleLengthRule, _mockSimpleNumberRule };
             _validator = new SimpleValidator(mockRules);
@@ -55,9 +59,10 @@ namespace PasswordValidator_UnitTests
             var result = _validator.Validate("testPassword");
 
             Assert.IsTrue(result);
-            _mockSimpleNumberRule.Received().Satisfied(Arg.Any<string>());
-            _mockSimpleLengthRule.Received().Satisfied(Arg.Any<string>());
-            _mockCharacterRule.Received().Satisfied(Arg.Any<string>());
+
+            _mockSimpleNumberRule.Received().Satisfied(_password);
+            _mockSimpleLengthRule.Received().Satisfied(_password);
+            _mockCharacterRule.Received().Satisfied(_password);
             _mockAdvancedLengthRule.DidNotReceive().Satisfied(Arg.Any<string>());
             _mockAdvancedNumberRule.DidNotReceive().Satisfied(Arg.Any<string>());
         }
@@ -65,9 +70,9 @@ namespace PasswordValidator_UnitTests
         [Test]
         public void Validate_SimpleLengthRuleNotSatisfied_ShouldReturnFalse()
         {
-            _mockSimpleLengthRule.Satisfied(Arg.Any<string>()).Returns(false);
-            _mockSimpleNumberRule.Satisfied(Arg.Any<string>()).Returns(true);
-            _mockCharacterRule.Satisfied(Arg.Any<string>()).Returns(true);
+            _mockSimpleLengthRule.Satisfied(_password).Returns(false);
+            _mockSimpleNumberRule.Satisfied(_password).Returns(true);
+            _mockCharacterRule.Satisfied(_password).Returns(true);
 
             var mockRules = new IRule[] { _mockSimpleLengthRule, _mockSimpleNumberRule, _mockCharacterRule, _mockAdvancedLengthRule, _mockAdvancedNumberRule };
             _validator = new SimpleValidator(mockRules);
@@ -75,7 +80,8 @@ namespace PasswordValidator_UnitTests
             var result = _validator.Validate("testPassword");
 
             Assert.IsFalse(result);
-            _mockSimpleLengthRule.Received().Satisfied(Arg.Any<string>());
+
+            _mockSimpleLengthRule.Received().Satisfied(_password);
             _mockSimpleNumberRule.DidNotReceive().Satisfied(Arg.Any<string>());
             _mockCharacterRule.DidNotReceive().Satisfied(Arg.Any<string>());
             _mockAdvancedLengthRule.DidNotReceive().Satisfied(Arg.Any<string>());
@@ -85,9 +91,9 @@ namespace PasswordValidator_UnitTests
         [Test]
         public void Validate_SimpleNumberRuleNotSatisfied_ShouldReturnFalse()
         {
-            _mockSimpleLengthRule.Satisfied(Arg.Any<string>()).Returns(true);
-            _mockSimpleNumberRule.Satisfied(Arg.Any<string>()).Returns(false);
-            _mockCharacterRule.Satisfied(Arg.Any<string>()).Returns(true);
+            _mockSimpleLengthRule.Satisfied(_password).Returns(true);
+            _mockSimpleNumberRule.Satisfied(_password).Returns(false);
+            _mockCharacterRule.Satisfied(_password).Returns(true);
 
             var mockRules = new IRule[] { _mockAdvancedLengthRule, _mockAdvancedNumberRule, _mockCharacterRule, _mockSimpleLengthRule, _mockSimpleNumberRule };
             _validator = new SimpleValidator(mockRules);
@@ -95,8 +101,9 @@ namespace PasswordValidator_UnitTests
             var result = _validator.Validate("testPassword");
 
             Assert.IsFalse(result);
-            _mockSimpleLengthRule.Received().Satisfied(Arg.Any<string>());
-            _mockSimpleNumberRule.Received().Satisfied(Arg.Any<string>());
+
+            _mockSimpleLengthRule.Received().Satisfied(_password);
+            _mockSimpleNumberRule.Received().Satisfied(_password);
             _mockCharacterRule.DidNotReceive().Satisfied(Arg.Any<string>());
             _mockAdvancedLengthRule.DidNotReceive().Satisfied(Arg.Any<string>());
             _mockAdvancedNumberRule.DidNotReceive().Satisfied(Arg.Any<string>());
@@ -105,9 +112,9 @@ namespace PasswordValidator_UnitTests
         [Test]
         public void Validate_CharacterRuleNotSatisfied_ShouldReturnFalse()
         {
-            _mockSimpleLengthRule.Satisfied(Arg.Any<string>()).Returns(true);
-            _mockSimpleNumberRule.Satisfied(Arg.Any<string>()).Returns(true);
-            _mockCharacterRule.Satisfied(Arg.Any<string>()).Returns(false);
+            _mockSimpleLengthRule.Satisfied(_password).Returns(true);
+            _mockSimpleNumberRule.Satisfied(_password).Returns(true);
+            _mockCharacterRule.Satisfied(_password).Returns(false);
 
             var mockRules = new IRule[] { _mockAdvancedLengthRule, _mockAdvancedNumberRule, _mockCharacterRule, _mockSimpleLengthRule, _mockSimpleNumberRule };
             _validator = new SimpleValidator(mockRules);
@@ -116,9 +123,9 @@ namespace PasswordValidator_UnitTests
 
             Assert.IsFalse(result);
 
-            _mockSimpleNumberRule.Received().Satisfied(Arg.Any<string>());
-            _mockSimpleLengthRule.Received().Satisfied(Arg.Any<string>());
-            _mockCharacterRule.Received().Satisfied(Arg.Any<string>());
+            _mockSimpleNumberRule.Received().Satisfied(_password);
+            _mockSimpleLengthRule.Received().Satisfied(_password);
+            _mockCharacterRule.Received().Satisfied(_password);
             _mockAdvancedLengthRule.DidNotReceive().Satisfied(Arg.Any<string>());
             _mockAdvancedNumberRule.DidNotReceive().Satisfied(Arg.Any<string>());
         }
